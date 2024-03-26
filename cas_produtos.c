@@ -1,11 +1,6 @@
 #include "cad_produtos.h"
 
-typedef struct produto{
-char nome_prod [70];
-char tip_prod [70];
-float preco;
-int quant;
-}Produto;
+typedef struct Produto produto; 
 
 void busca_produto(){
     printf("Qual produto esta procurando: \n");
@@ -18,22 +13,22 @@ void busca_produto(){
     */
 }
 
-void adiciona_produto(){
+void adiciona_produto(Produto *produto){
     printf("Insira o nome do produto: \n");
-    scanf(" %[^\n]",);
+    scanf(" %[^\n]", produto->nome_prod);
     printf("Informe o tipo do produto: \n");
-    scanf(" %[^\n]",);
+    scanf(" %[^\n]", produto->nome_prod);
     printf("Informe o preco do produto: \n");
-    scanf(" %f",);
+    scanf(" %f", &produto->preco);
     printf("Informe a quantidade desse produto: \n");
-    scanf("%d",);
+    scanf("%d", &produto->quant);
 }
-
+ 
 void remover_produto(){
 
 }
 
 void comprar_produtos(){
     printf("Oque deseja comprar: \n");
-    scanf("%d",);
+    
 }
