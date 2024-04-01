@@ -16,6 +16,7 @@ void cad_pap( Papelaria **papelaria, int *quant) {
     scanf(" %[^\n]", (*papelaria)[*quant].produtos);
      (*quant)++;
 }
+
     void rem_pap(Papelaria *papelaria, int *quant, char *nomePap) {
     int i, j;
     for (i = 0; i < *quant; i++) {
@@ -42,6 +43,7 @@ void cad_pap( Papelaria **papelaria, int *quant) {
 
     printf("Papelaria %s removida com sucesso.\n", nomePap);
 }
+
 void pap_salva(Papelaria *papelaria, int quant){
     FILE *arquivo = fopen("papelarias.txt", "w");
     if (arquivo == NULL) {
@@ -55,6 +57,7 @@ void pap_salva(Papelaria *papelaria, int quant){
 
     fclose(arquivo);
 }
+
 void carr_pap(Papelaria **papelaria, int *quant) {
    FILE *arquivo = fopen("papelarias.txt", "r");
     if (arquivo == NULL) {
@@ -74,6 +77,7 @@ void carr_pap(Papelaria **papelaria, int *quant) {
 
     fclose(arquivo);
 }
+
 void listar_pap(Papelaria *papelaria, int quant){
      printf("\nDados fornecidos:\n");
     for (int i = 0; i < quant; i++) {
@@ -85,3 +89,8 @@ void listar_pap(Papelaria *papelaria, int quant){
     }
 }
 
+/*
+Correção: Listar papelaria tambem deve listar os produtos das papelarias
+
+fazemos depois: tratativas para uma papelaria ou produto ja existente na lista 
+*/
