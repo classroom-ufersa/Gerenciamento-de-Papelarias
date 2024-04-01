@@ -3,10 +3,12 @@
 
 
 int main(){
- Papelaria *papelaria = NULL;
-int quant = 0;
+Produto *produto = NULL;
+Papelaria *papelaria = NULL;
+int quant = 0, qtdpob = 0;
 int opc, op2, op3; 
 char nomePap[50];
+char nomeprod[50];
 
 
 printf("***************[ SISTEMA OS EMPAPELADOS ]***************\n");
@@ -43,12 +45,14 @@ scanf("%d", &opc);
         printf("(1)-Buscar Produto. \n (2)-Adiocionar novo Produto. \n (3)-Remover um produto existente. \n (4)-Repor estoque. \n");
             switch(op3){
                 case 1:
+                ad_produto(produto, &qtdpod);
                 break; 
 
                 case 2:
                 break;
 
                 case 3:
+                remover_produto(produto, &qtdprod, nomeprod);
                 break; 
                 
                 case 4:
