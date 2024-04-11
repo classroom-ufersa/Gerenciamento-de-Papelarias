@@ -27,18 +27,18 @@ void inserir(Lista *plista, Papelaria dado) {
   void deletar_pap (Lista *plista, char* nome){
         if (plista->inicio ==NULL){
             printf("Sem papelaria\n");
-        } else if(plista->inicio->dado.nome == nome) {
+       } else if(strcmp(plista->inicio->dado.nome, nome) == 0) {
             struct No* pi = plista->inicio;
             plista->inicio = pi ->porx;
             free(pi);    
         }else if (plista->inicio->porx==NULL){
-            if (plista->inicio->dado.nome != nome){
+              if  (strcmp(plista->inicio->dado.nome, nome) != 0){
                 printf("A papelaria nao pode ser removida\n");
             }
         }else {
             struct No * pa;
             struct No * pi;
-            for (pi = plista->inicio; pi != NULL && pi->dado.nome != nome; pi->porx){
+              for (pi = plista->inicio; pi != NULL && strcmp(pi->dado.nome, nome) != 0; pi = pi->porx){
                 pa = pi;
             } if (pi == NULL){
                 printf(" A papelaria nao pode ser renovida\n");
