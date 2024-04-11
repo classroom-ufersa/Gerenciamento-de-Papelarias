@@ -24,50 +24,47 @@ void inserir(Lista *plista, Papelaria dado) {
     novo->porx = plista->inicio;
     plista->inicio = novo;
    }
-
-void pap_salva(Papelaria *papelaria, int quant){
-    FILE *arquivo = fopen("papelarias.txt", "w");
-    if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo.\n");
-        exit(1);
-    }
-
-    for (int i = 0; i < quant; i++) {
-        fprintf(arquivo, "Nome: %s | Local: %s | Produtos: %s \n ", papelaria[i].nome, papelaria[i].local, papelaria[i].produtos);
-    }
-
-    fclose(arquivo);
-}
-
-void carr_pap(Papelaria **papelaria, int *quant) {
-   FILE *arquivo = fopen("papelarias.txt", "r");
-    if (arquivo == NULL) {
-        printf("Arquivo de papelarias não encontrado.\n");
-        return;
-    }
-
-    while (!feof(arquivo)) {
-        *papelaria = realloc(*papelaria, (*quant + 1) * sizeof(Papelaria));
-        if (*papelaria == NULL) {
-            printf("Erro ao alocar memória.\n");
-            exit(1);
+  void deletar_pap (Lista *plista, char* nome){
+        if (plista->inicio ==NULL){
+            printf("Sem papelaria\n");
+        } else if(plista->inicio->dado.nome == nome) {
+            struct No* pi = plista->inicio;
+            plista->inicio = pi ->porx;
+            free(pi);    
+        }else if (plista->inicio->porx==NULL){
+            if (plista->inicio->dado.nome != nome){
+                printf("A papelaria nao pode ser removida\n");
+            }
+        }else {
+            struct No * pa;
+            struct No * pi;
+            for (pi = plista->inicio; pi != NULL && pi->dado.nome != nome; pi->porx){
+                pa = pi;
+            } if (pi == NULL){
+                printf(" A papelaria nao pode ser renovida\n");
+            } else {
+                pa->porx = pi->porx;
+                free(pi);
+            }         
         }
-        fscanf(arquivo, "%[^|]|%[^|]|%[^\n]\n", (*papelaria)[*quant].nome, (*papelaria)[*quant].local, (*papelaria)[*quant].produtos);
-        (*quant)++;
     }
 
-    fclose(arquivo);
+void listar_pap(Lista lista){
+struct No * pi;
+for (pi = lista.inicio; pi  != NULL; pi = pi->porx) {
+        printf("Nome: %s|\t Endereco: %s|\n", pi-> dado.nome,  pi-> dado.local);
+                
+}
 }
 
-void listar_pap(Papelaria *papelaria, int quant){
-     printf("\nDados fornecidos:\n");
-    for (int i = 0; i < quant; i++) {
-        printf("Papelaria %d\n", i + 1);
-        printf(" Nome: %s \n Local: %s\n Produtos: %s\n", papelaria[i].nome, papelaria[i].local, papelaria[i].produtos);
-        printf("--------------------------\n");
-       
-
+struct No* pesquisar(Lista lista, char* nome){
+    struct No* pi;
+     for (pi = lista.inicio; pi != NULL; pi = pi->porx) {
+        if (strcmp(pi->dado.nome, nome) == 0) {
+            return pi;
+        }
     }
+    return NULL; 
 }
 
 /*
