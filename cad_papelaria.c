@@ -1,48 +1,29 @@
 #include "cad_papelaria.h"
 
-typedef struct papelaria Papelaria;
 
-void cad_pap( Papelaria **papelaria, int *quant) {
-    *papelaria = realloc(*papelaria, (*quant + 1) * sizeof(papelaria));
-    if (*papelaria == NULL) {
+void cad_pap( Papelaria **papelaria) {
+     *papelaria = (Papelaria*) malloc(sizeof(Papelaria));
+       if (*papelaria == NULL) {
         printf("Erro ao alocar memória.\n");
         exit(1);
     }
     printf("Insira o nome da nova papelaria: \n");
-    scanf(" %[^\n]", (*papelaria)[*quant].nome);
+    scanf(" %[^\n]", (*papelaria)->nome);
+    while ((getchar()) != '\n');
     printf("Insira o endereco da papelaria: \n");
-    scanf(" %[^\n]", (*papelaria)[*quant].local);
-    printf("Informe os produtos presentes nessa papelaria: \n");
-    scanf(" %[^\n]", (*papelaria)[*quant].produtos);
-     (*quant)++;
-}
+    scanf(  "%[^\n]", (*papelaria)->local);
+    }
 
-    void rem_pap(Papelaria *papelaria, int *quant, char *nomePap) {
-    int i, j;
-    for (i = 0; i < *quant; i++) {
-        if (strcmp(papelaria[i].nome, nomePap) == 0) {
-           
-            for (j = i; j < *quant - 1; j++) {
-                strcpy(papelaria[j].nome, papelaria[j + 1].nome);
-                strcpy(papelaria[j].local, papelaria[j + 1].local);
-                strcpy(papelaria[j].produtos, papelaria[j + 1].produtos);
-            }
-            (*quant)--;
-            break;
-        }
+void inserir(Lista *plista, Papelaria dado) {
+    struct No *novo = (struct No*) malloc(sizeof(struct No));  
+     if (novo == NULL) {
+        printf("Erro ao alocar memória.\n");
+        exit(1);
     }
-    FILE *arquivo = fopen("papelarias.txt", "w");
-    if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo.\n");
-        return;
-    }
-    for (i = 0; i < *quant; i++) {
-        fprintf(arquivo, "Nome: %s | Local: %s | Produtos: %s \n", papelaria[i].nome, papelaria[i].local, papelaria[i].produtos);
-    }
-    fclose(arquivo);
-
-    printf("Papelaria %s removida com sucesso.\n", nomePap);
-}
+    novo->dado = dado;
+    novo->porx = plista->inicio;
+    plista->inicio = novo;
+   }
 
 void pap_salva(Papelaria *papelaria, int quant){
     FILE *arquivo = fopen("papelarias.txt", "w");
