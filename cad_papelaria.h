@@ -3,18 +3,31 @@
 #include <string.h>
 
 typedef struct papelaria {
-char nome [50];
-char local [100];
-char produtos [100];
-}Papelaria;
+    char nome[50];
+    char local[100];
+    struct Produto *produtos;
+} Papelaria;
+
+typedef struct lista{
+  struct No * inicio;
+} Lista;
+
+struct No{
+    Papelaria dado;
+     struct  No * porx;
+    };
+
 
 // Função para cadastrar papelaria
-void cad_pap( Papelaria **papelaria, int *quant);
+void cad_pap( Papelaria **papelaria);
 //Função para remover papelaria;
-void rem_pap(Papelaria *papelaria, int *quant, char *nomePap);
+void inserir(Lista *plista, Papelaria dado);
 
-void pap_salva(Papelaria *papelaria, int quant);
+void deletar_pap (Lista *plista, char* nome);
 
-void carr_pap(Papelaria **papelaria, int *quant);
-// Função para lista as papelaria cadastradas
-void listar_pap(Papelaria *papelaria, int quant);
+void listar_pap(Lista lista);
+
+struct No* pesquisar(Lista lista, char* nome);
+
+
+
