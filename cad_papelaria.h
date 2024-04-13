@@ -17,9 +17,7 @@ struct No{
      struct  No * porx;
     };
 
-
-// Função para cadastrar papelaria
-void cad_pap( Papelaria **papelaria);
+void cad_pap( Papelaria **papelaria, Lista *plista) ;
 //Função para remover papelaria;
 void inserir(Lista *plista, Papelaria dado);
 
@@ -29,5 +27,8 @@ void listar_pap(Lista lista);
 
 struct No* pesquisar(Lista lista, char* nome);
 
+void salva_dados(Lista *plista);
 
+void carregar_dados(Lista *plista);
 
+void atualizar_arquivo(Lista *plista);
