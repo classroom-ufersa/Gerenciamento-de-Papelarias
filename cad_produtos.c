@@ -4,12 +4,6 @@ typedef struct Produto produto;
 
 void busca_prod(Produto *produto, int *qtdpod, char nomepod){
 
-    /*
-    Aviso de tratativa caso o produto não exista na lista
-    ideia: perguntar se o usuario deseja cadastrar o produto
-
-    printf("O produto buscado não esta cadastrado! \n");
-    */
 }
 
 void ad_produto(Produto **produto, int *qtdpod){
@@ -59,13 +53,5 @@ void remover_produto(Produto *produto, int *qtdprod, char nomeprod[]) {
 }
 
 void venda_prod(){
-    /*
-    Não é necessario utilizar o saldo para venda do produto apenas diminuir
-    o numero de produtos em cada papelaria
-
-    a função venda deve ser implementada na opção repor estoque onde estara
-    no menu das papelarias
-
-    procurar ajuda sobre o algoritmo de busca que sera implementado nas funções
-    */
+   
 }
