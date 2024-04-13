@@ -1,8 +1,7 @@
 #include "cad_papelaria.h"
 #include "cad_produtos.h"
 
-
-int main(){
+int main(void){
 Lista lista ;
 lista.inicio = NULL;
 Produto *produto = NULL;
@@ -10,7 +9,6 @@ Papelaria *papelaria = NULL;
 int opc, op2, op3; 
 char nome[50];
 char nomeprod[50];
-
 
 do {
            printf("***************[ SISTEMA OS EMPAPELADOS ]***************\n");
@@ -41,11 +39,10 @@ scanf("%d", &opc);
                 break;
 
                 case 3:  
-               listar_pap(lista);
+                listar_pap(lista);
                 break;
 
                 case 4: 
-                
                 printf("informr a papelaria que deseja Remover\n");
                 scanf("%s",nome);
                 deletar_pap(&lista, nome);
@@ -58,14 +55,15 @@ scanf("%d", &opc);
           scanf("%d", &op3);
             switch(op3){
                 case 1:
-               
+
                 break; 
 
                 case 2:
+                ad_produto(Produto **produto, int *qtdpod);
                 break;
 
                 case 3:
-
+                remover_produto(Produto *produto, int *qtdprod, char nomeprod[]);
                 break; 
                 
                 case 4:
