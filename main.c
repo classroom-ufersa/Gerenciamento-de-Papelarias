@@ -2,13 +2,15 @@
 #include "cad_produtos.h"
 
 int main(void){
-Lista lista ;
+Lista_prod lista_prod;
+lista_prod.pinicio = NULL;
+Lista lista;
 lista.inicio = NULL;
 Produto *produto = NULL;
 Papelaria *papelaria = NULL;
 int opc, op2, op3, qtdpod, qtdprod; 
 char nome[50];
-char nomeprod[50];
+char nome_prod[50];
 
 do {
            printf("***************[ SISTEMA OS EMPAPELADOS ]***************\n");
@@ -58,16 +60,17 @@ scanf("%d", &opc);
           scanf("%d", &op3);
             switch(op3){
                 case 1:
-                struct No* pesq_prod(lista, nome_prod);
+                struct Nop* pro_it = pesq_prod(lista_prod, nome_prod);
+                
                 break; 
 
                 case 2:
-                ad_produto(&produto, &qtdpod);
-                insere_prod(plista, *Produto);
+                ad_produto(&produto, &qtdpod, &lista_prod);
+                insere_prod(&lista_prod, *produto);
                 break;
 
                 case 3:
-                remover_produto( produto, &qtdprod, nomeprod);
+                remover_produto( produto, &qtdprod, nome_prod);
                 break; 
                 
                 case 4:
