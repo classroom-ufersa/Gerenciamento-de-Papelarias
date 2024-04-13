@@ -9,29 +9,28 @@ float preco;
 int qtd;
 }Produto;
 
-struct No{
-    Dados produtos;
-     struct  No * proximo;
-    };
-
 typedef struct lista_prod{
-  struct No * inicio;
+  struct Nop * pinicio;
 } Lista_prod;
 
+struct Nop{
+    Produto Dados ;
+     struct  Nop * prox;
+    };
+
+
+
 // Adiciona os itens aos campos pedidos ao usuario
-void ad_produto(Produto **produto, int *qtdpod);
+void ad_produto(Produto **produto, int *qtdpod, Lista_prod* pblista);
 
 // Salva os dados fornecidos pelo usuario no .txt
 void salva_prod(Lista_prod *plista);
 
 // Insere os dados fornecidos a lista
-void insere_prod(Lista_prod *plista, Dados Produto);
+void insere_prod(Lista_prod *pblista, Produto Dados );
 
 // Struct para busca de produtos
-struct No* pesq_prod(lista_prod lista, char* nome_prod);
-
-// Função para cadastrar uma produto
-void ad_produto(Produto **produto, int *qtdpod);
+struct Nop* pesq_prod(Lista_prod lista, char* nome_prod);
 
 // Função para remover um produto 
 void remover_produto(Produto *produto, int *qtdprod, char nomeprod[]);
