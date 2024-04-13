@@ -14,7 +14,7 @@ typedef struct lista{
 
 struct No{
     Papelaria dado;
-     struct  No * porx;
+     struct  No * proximo;
     };
 
 
