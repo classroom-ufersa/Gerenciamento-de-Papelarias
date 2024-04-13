@@ -6,11 +6,10 @@ Lista lista ;
 lista.inicio = NULL;
 Produto *produto = NULL;
 Papelaria *papelaria = NULL;
-int opc, op2, op3; 
+int opc, op2, op3, qtdpod, qtdprod; 
 char nome[50];
 char nomeprod[50];
-           
-carregar_dados(&lista);
+
 do {
            printf("***************[ SISTEMA OS EMPAPELADOS ]***************\n");
 printf("    Nos informe oque deseja fazer\n");
@@ -63,11 +62,11 @@ scanf("%d", &opc);
                 break; 
 
                 case 2:
-                ad_produto(Produto **produto, int *qtdpod);
+                ad_produto(&produto, &qtdpod);
                 break;
 
                 case 3:
-                remover_produto(Produto *produto, int *qtdprod, char nomeprod[]);
+                remover_produto( produto, &qtdprod, nomeprod);
                 break; 
                 
                 case 4:
