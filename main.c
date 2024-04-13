@@ -58,11 +58,12 @@ scanf("%d", &opc);
           scanf("%d", &op3);
             switch(op3){
                 case 1:
-
+                struct No* pesq_prod(lista, nome_prod);
                 break; 
 
                 case 2:
                 ad_produto(&produto, &qtdpod);
+                insere_prod(plista, *Produto);
                 break;
 
                 case 3:
