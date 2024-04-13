@@ -9,7 +9,8 @@ Papelaria *papelaria = NULL;
 int opc, op2, op3; 
 char nome[50];
 char nomeprod[50];
-
+           
+carregar_dados(&lista);
 do {
            printf("***************[ SISTEMA OS EMPAPELADOS ]***************\n");
 printf("    Nos informe oque deseja fazer\n");
@@ -22,13 +23,14 @@ scanf("%d", &opc);
         scanf("%d",&op2);
             switch(op2){
                 case 1:
-                 cad_pap(&papelaria);
+                 cad_pap(&papelaria, &lista);
                  inserir(&lista, *papelaria);
                 break;
 
                 case 2:
+               ((getchar()) != '\n');
                 printf("informe o nome da papelaria\n");
-                scanf("%s",nome);
+                scanf("%[^\n]",nome);
               struct No* pi = pesquisar(lista, nome);
               if (pi !=NULL){
                 printf("%s %s\n", pi->dado.nome, pi->dado.local);
@@ -43,9 +45,11 @@ scanf("%d", &opc);
                 break;
 
                 case 4: 
+               ((getchar()) != '\n');
                 printf("informr a papelaria que deseja Remover\n");
-                scanf("%s",nome);
+                scanf("%[^\n]",nome);
                 deletar_pap(&lista, nome);
+                atualizar_arquivo(&lista);
                 break;
             }
             } 
@@ -74,7 +78,7 @@ scanf("%d", &opc);
     else if(opc == 3){
         
     }
-    }while(opc = 3);
+    }while(opc != 3);
    
   free(papelaria);
  
