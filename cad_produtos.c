@@ -29,12 +29,15 @@ void ad_produto(Produto **produto, int *qtdpod){
 
 }
 
-void remover_produto(Produto *produto, int *qtdprod, char nomeprod){
-int i, j;
-    for(i = 0; i < *qtdprod; i++){
-        if(strcmp(produto[i].nome_prod, nomeprod) == 0){
-            for(j = i; j < *qtdprod - 1; j++){
+void remover_produto(Produto *produto, int *qtdprod, char nomeprod[]) {
+    int i, j;
+    for (i = 0; i < *qtdprod; i++) {
+        if (strcmp(produto[i].nome_prod, nomeprod) == 0) {
+            for (j = i; j < *qtdprod - 1; j++) {
                 strcpy(produto[j].nome_prod, produto[j + 1].nome_prod);
+                strcpy(produto[j].tip_prod, produto[j + 1].tip_prod);
+                produto[j].preco = produto[j + 1].preco;
+                produto[j].qtd = produto[j + 1].qtd;
             }
             (*qtdprod)--;
             break;
@@ -42,20 +45,18 @@ int i, j;
     }
     FILE *arquivo = fopen("produto.txt", "w");
     if (arquivo == NULL) {
-    printf("Erro ao abrir o arquivo.\n");
-    return;
+        printf("Erro ao abrir o arquivo.\n");
+        return;
     }
     for (i = 0; i < *qtdprod; i++) {
-    fprintf(arquivo, "Nome: %s", produto[i].nome_prod);
+        fprintf(arquivo, "Nome: %s\n", produto[i].nome_prod);
+        fprintf(arquivo, "Tipo: %s\n", produto[i].tip_prod);
+        fprintf(arquivo, "Preco: %.2f\n", produto[i].preco);
+        fprintf(arquivo, "Quantidade: %d\n", produto[i].qtd);
     }
     fclose(arquivo);
-    printf("Produto removido com exito! \n");
+    printf("Produto removido com sucesso!\n");
 }
-
-/*
-Aviso de trataiva: para checar se o produto foi realmente removido
-Ideia: imprimir a papelaria em que o produto foi removido para checar a ação
-*/
 
 void venda_prod(){
     /*
@@ -68,7 +69,3 @@ void venda_prod(){
     procurar ajuda sobre o algoritmo de busca que sera implementado nas funções
     */
 }
-
-    
-    
- 
