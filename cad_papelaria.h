@@ -1,43 +1,46 @@
+#ifndef CAD_PRODUTOS_H
+#define CAD_PRODUTOS_H
+#include "cad_papelaria.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct papelaria {
-    char nome[50];
-    char local[100];
-    struct Produto *produtos;
-} Papelaria;
 
-typedef struct lista{
-  struct No * inicio;
-} Lista;
+typedef struct lista_prod{
+  struct Nop * pinicio;
+} Lista_prod;
 
-struct No{
-    Papelaria dado;
-     struct  No * proximo;
+struct Nop{
+    Produto Dados ;
+     struct  Nop * prox;
     };
 
 
-// Função para cadastrar papelaria
-void cad_pap( Papelaria **papelaria, Lista *plista);
 
-// Função para remover papelaria;
-void inserir(Lista *plista, Papelaria dado);
+// Adiciona os itens aos campos pedidos ao usuario
+void ad_produto(Produto **produto, Lista_prod* pblista, Lista* plista);
 
-// Função para remover papelaria escolhida junto aos produtos
-void deletar_pap (Lista *plista, char* nome);
+// Salva os dados fornecidos pelo usuario no .txt
+void salva_prod(Lista_prod *plista);
 
-// Lista papelarias existentes junto aos produtos
-void listar_pap(Lista lista);
+// Insere os dados fornecidos a lista
+void insere_prod(Lista_prod *pblista, Produto Dados );
 
-// Struct responsavel pela busca das papelarias
-struct No* pesquisar(Lista lista, char* nome);
+// Struct para busca de produtos
+struct Nop* pesq_prod(Lista_prod lista, char* nome_prod);
 
-void salva_dados(Lista *plista);
+// Função para remover um produto 
+void remover_produto(Produto *produto, int *qtdprod, char nomeprod[]);
 
-void carregar_dados(Lista *plista);
+/*
+Essa fução se encontrara na opção repor estoque
+Função para adquirir produtos para papelaria
+*/
+void venda_prod();
 
-void atualizar_arquivo(Lista *plista);
+// Função para buscar produtos cadastrados em uma papelaria
+void busca_prod(Produto *produto, int *qtdpod, char nomepod);
 
+void mostrar_prod(Lista* plista);
 
-
+#endif 
