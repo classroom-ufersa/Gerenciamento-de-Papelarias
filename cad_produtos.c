@@ -1,6 +1,5 @@
 #include "cad_produtos.h"
 
-typedef struct Produto produto; 
 
 struct Nop* pesq_prod(Lista_prod lista, char* nome_prod){
     struct Nop* pro_it;
@@ -12,53 +11,63 @@ struct Nop* pesq_prod(Lista_prod lista, char* nome_prod){
     return NULL; 
 }
 
-void ad_produto(Produto **produto, int *qtdpod, Lista_prod* pblista){
-    *produto = realloc(*produto, (*qtdpod + 1) *sizeof(Produto));
-    if(*produto == NULL){
-        printf("erro alocar memoria \n");
-        exit(1);
+void ad_produto(Produto **produto, Lista_prod* pblista, Lista* plista){
+    printf(" Ola :-) Para qual papelaria gostaria de colocar o seu produto: \n");
+    char nome_papelaria[50];
+    scanf(" %[^\n]", nome_papelaria);
+    No* pi = pesquisar(*plista, nome_papelaria);
+    if (pi == NULL) {
+        printf(" Ops :-(  Parece que a papelaria ainda nao foi cadastrada. Por favor, cadastre uma papelaria primeiro.\n");
+        papelaria dadopapelaria; 
+        cad_pap(&dadopapelaria, plista);
+        inserir_lista(plista, dadopapelaria);
+        salva_dados(plista);
+        pi = pesquisar(*plista, nome_papelaria);
     }
-    do {
+
     printf("Informe o nome do produto: \n");
-    scanf(" %[^\n]", (*produto)[*qtdpod].nome_prod);
-        while((getchar()) != '\n');
-        if(pesq_prod(*pblista, (*produto)->nome_prod) != NULL){
-            system ("cls");
-            printf("Esse produto ja foi cadastrado %s por favor, informe um outro produto\n", (*produto)->nome_prod);
-        }
-    }while(pesq_prod(*pblista, (*produto)->nome_prod) !=NULL);
-    printf("Insira o tipo do produto: \n");
-    scanf(" %[^\n]", (*produto)[*qtdpod].tip_prod);
+    scanf(" %[^\n]", (*produto)->nome_prod);
+    while((getchar()) != '\n');
+
+    printf("Insira o tipo do produto: \n"); 
+    scanf(" %[^\n]", (*produto)->tip_prod);
     printf("Insira um preco para o produto: \n");
-    scanf("%f", (*produto)[*qtdpod].preco);
+    scanf("%f",&(*produto)->preco);
     printf("Informe a quantidade desse produto: \n");
-    scanf("%d", (*produto)[*qtdpod].qtd);
-}
+    scanf("%d", &(*produto)->qtd);
 
-void salva_prod(Lista_prod *pblista) {
-    FILE *arquivo = fopen ("produto.txt"," w+");
-    if (arquivo==NULL){
-    printf("Erro ao abri o arquivo.\n");
-    exit(1);
-    }
-struct  Nop *pro_it; 
-for (pro_it = pblista->pinicio; pro_it != NULL; pro_it = pro_it -> prox){
-    fprintf(arquivo,"Produto: %s \n Tipo: %s \n Preco: %f  \n Quantidade: %d", pro_it->Dados.nome_prod, pro_it->Dados.tip_prod, pro_it->Dados.preco, pro_it->Dados.qtd);
-
-}
-fclose(arquivo);
+    pi->dado.produtos = realloc(pi->dado.produtos, (pi->dado.num_produtos + 1) * sizeof(Produto));
+    pi->dado.produtos[pi->dado.num_produtos] = **produto;
+    pi->dado.num_produtos++;
 }
 
 void insere_prod(Lista_prod  *pblista, Produto Dados){
     struct Nop *novo = (struct Nop*) malloc(sizeof(struct Nop));
-if (novo == NULL){
-    printf("Erro ao alocar memoria\n");
-    exit(1);
+    if (novo == NULL){
+        printf("Erro ao alocar memoria\n");
+        exit(1);
+    }
+    novo-> Dados = Dados;
+    novo-> prox = NULL;
+    if (pblista->pinicio == NULL){
+        pblista->pinicio = novo;
+    } else {
+        struct Nop* pro_it;
+        for(pro_it = pblista->pinicio; pro_it->prox != NULL; pro_it = pro_it ->prox);
+        pro_it->prox = novo;
+    }
 }
-novo-> Dados = Dados;
-novo-> prox = pblista->pinicio;
-pblista->pinicio = novo;
-salva_prod(pblista);
+void mostrar_prod(Lista* plista){
+    int num_nos = 0;
+    for (No* temp = plista->inicio; temp != NULL; temp = temp->proximo) {
+        num_nos++;
+    }
+    for (No* atual = plista->inicio; num_nos > 0; atual = atual->proximo, num_nos--) {
+        printf("Papelaria: %s|", atual->dado.nome);
+        for (int i = 0; i < atual->dado.num_produtos; i++) {
+            printf("Produto: %s|, Tipo: %s|, Preco: %.2f|, Quantidade: %d|\n\n",atual->dado.produtos[i].nome_prod,atual->dado.produtos[i].tip_prod, atual->dado.produtos[i].preco,atual->dado.produtos[i].qtd);
+        }
+    }
 }
 
 void remover_produto(Produto *produto, int *qtdprod, char nomeprod[]) {
@@ -88,6 +97,21 @@ void remover_produto(Produto *produto, int *qtdprod, char nomeprod[]) {
     }
     fclose(arquivo);
     printf("Produto removido com sucesso!\n");
+
+}
+
+void salva_prod(Lista_prod *pblista) {
+    FILE *arquivo = fopen ("produto.txt"," w+");
+    if (arquivo==NULL){
+    printf("Erro ao abri o arquivo.\n");
+    exit(1);
+    }
+struct  Nop *pro_it; 
+for (pro_it = pblista->pinicio; pro_it != NULL; pro_it = pro_it -> prox){
+    fprintf(arquivo,"Produto: %s \n Tipo: %s \n Preco: %f  \n Quantidade: %d", pro_it->Dados.nome_prod, pro_it->Dados.tip_prod, pro_it->Dados.preco, pro_it->Dados.qtd);
+
+}
+fclose(arquivo);
 }
 
 void venda_prod(){
