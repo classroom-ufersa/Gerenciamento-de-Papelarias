@@ -7,65 +7,91 @@ lista_prod.pinicio = NULL;
 Lista lista;
 lista.inicio = NULL;
 Produto *produto = NULL;
-Papelaria *papelaria = NULL;
-int opc, op2, op3, qtdpod, qtdprod; 
+papelaria dadopapelaria;
+int opc, op2, op3, qtdpod, qtdprod, result;
 char nome[50];
 char nome_prod[50];
+
+carregar_dados(&lista);
 
 do {
            printf("***************[ SISTEMA OS EMPAPELADOS ]***************\n");
 printf("    Nos informe oque deseja fazer\n");
-printf(" (1)-Gerenciar Papelarias. \n (2)-Gerenciar Produtos. \n (3)-Sair do programa.\n ");
-scanf("%d", &opc);
+printf(" (1)-Gerenciar Papelarias. \n (2)-Gerenciar Produtos. \n (3)-Listar Papelarias e seus produtos.\n (4)-Sair. \n ");
+obter_opcao_valida(&opc);
     if(opc == 1){
-       
+      
              printf("------------ OQUE DESEJA FAZER ------------\n");
         printf(" (1)-Adiocionar uma nova Papelaria. \n (2)-pesquisar por papelaria. \n (3)-Listar Papelarias e produtos.\n  (4)-Remover uma papelaria existente. \n");
-        scanf("%d",&op2);
+        obter_opcao_valida(&op2);
             switch(op2){
-                case 1:
-                 cad_pap(&papelaria, &lista);
-                 inserir(&lista, *papelaria);
-                break;
+                case 1:{
+                    papelaria dadopap;
+                    cad_pap (&dadopap, &lista);
+                inserir_lista(&lista, dadopap);
+                salva_dados(&lista);
+                }
+              break;  
 
-                case 2:
-               ((getchar()) != '\n');
+                case 2:{
+                  char nome[50];
+                    ((getchar()) != '\n');
                 printf("informe o nome da papelaria\n");
                 scanf("%[^\n]",nome);
-              struct No* pi = pesquisar(lista, nome);
-              if (pi !=NULL){
+                struct No * pi = pesquisar(lista,nome);
+                if (pi !=NULL){
                 printf("%s %s\n", pi->dado.nome, pi->dado.local);
               }
               else {
                 printf("paprarlia nao encontrada\n");
               }
+                }
                 break;
 
                 case 3:  
-                listar_pap(lista);
+                 mostrar(lista);
                 break;
 
-                case 4: 
+                case 4: {
+                  char nome[50];
                ((getchar()) != '\n');
                 printf("informr a papelaria que deseja Remover\n");
                 scanf("%[^\n]",nome);
                 deletar_pap(&lista, nome);
                 atualizar_arquivo(&lista);
+                }
                 break;
             }
             } 
         else if(opc == 2){
         printf("------------ OQUE DESEJA FAZER ------------\n");
         printf("(1)-Buscar Produto. \n (2)-Adiocionar novo Produto. \n (3)-Remover um produto existente. \n (4)-Repor estoque. \n");
-          scanf("%d", &op3);
+          obter_opcao_valida(&op3);
             switch(op3){
-                case 1:
-                struct Nop* pro_it = pesq_prod(lista_prod, nome_prod);
-                
+                case 1:{
+                   char nome[50];
+                printf("informe o nome do Produto\n");
+                 ((getchar()) != '\n');
+                scanf("%[^\n]",nome);
+                  struct Nop* pro_it = pesq_prod(lista_prod, nome_prod); 
+                  if (pro_it !=NULL){
+                 printf("Produto: %s | Preco: %.2f | Quantidade: %d | \n", pro_it->Dados.nome_prod, pro_it->Dados.preco,pro_it->Dados.tip_prod);
+              }
+              else {
+                printf("Produto nao encontrada\n");
+              }
+                }
+                  break;
+   
                 break; 
 
                 case 2:
-                ad_produto(&produto, &qtdpod, &lista_prod);
+                produto = malloc(sizeof(Produto));
+                if(produto == NULL){
+                    printf("erro alocar memoria \n");
+                    exit(1);
+                }
+                  ad_produto(&produto, &lista_prod, &lista);
                 insere_prod(&lista_prod, *produto);
                 break;
 
@@ -74,16 +100,17 @@ scanf("%d", &opc);
                 break; 
                 
                 case 4:
+               
                 break;
 
             }
     }
     else if(opc == 3){
-        
-    }
-    }while(opc != 3);
+      mostrar_prod(&lista);
+         }
+    }while(opc != 4);
    
-  free(papelaria);
+  
  
     return 0;
 }
