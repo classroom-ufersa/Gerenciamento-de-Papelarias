@@ -1,13 +1,10 @@
+#ifndef CAD_PRODUTOS_H
+#define CAD_PRODUTOS_H
+#include "cad_papelaria.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct produto {
-char nome_prod [70];
-char tip_prod [70];
-float preco;
-int qtd;
-}Produto;
 
 typedef struct lista_prod{
   struct Nop * pinicio;
@@ -21,7 +18,7 @@ struct Nop{
 
 
 // Adiciona os itens aos campos pedidos ao usuario
-void ad_produto(Produto **produto, int *qtdpod, Lista_prod* pblista);
+void ad_produto(Produto **produto, Lista_prod* pblista, Lista* plista);
 
 // Salva os dados fornecidos pelo usuario no .txt
 void salva_prod(Lista_prod *plista);
@@ -43,3 +40,7 @@ void venda_prod();
 
 // Função para buscar produtos cadastrados em uma papelaria
 void busca_prod(Produto *produto, int *qtdpod, char nomepod);
+
+void mostrar_prod(Lista* plista);
+
+#endif 
