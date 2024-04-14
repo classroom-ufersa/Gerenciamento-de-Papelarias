@@ -1,35 +1,56 @@
 #include "cad_papelaria.h"
 
-void cad_pap(Papelaria **papelaria, Lista *plista) {
-    *papelaria = (Papelaria*) malloc(sizeof(Papelaria));
-    if (*papelaria == NULL) {
-        printf("Erro ao alocar memoria.\n");
-        exit(1);
-    }
+void cad_pap(papelaria *dadopapelaria , Lista *plista){
     do {
         printf("Insira o nome da nova papelaria: \n");
-        scanf(" %[^\n]", (*papelaria)->nome);
+        scanf(" %[^\n]", dadopapelaria->nome);
         while ((getchar()) != '\n');
-        if(pesquisar(*plista, (*papelaria)->nome) != NULL){
+        if(pesquisar(*plista, dadopapelaria->nome) != NULL){
             system ("cls");
-            printf("uma papelaria ja foi cadastrada com esse nome %s por favor, insira um nome diferente.\n", (*papelaria)->nome);
+            printf("uma papelaria ja foi cadastrada com esse nome %s por favor, insira um nome diferente.\n", dadopapelaria->nome);
         }
-    } while(pesquisar(*plista, (*papelaria)->nome) != NULL);
+    } while(pesquisar(*plista, dadopapelaria->nome) != NULL);
     printf("Insira o endereco da papelaria: \n");
-    scanf(  "%[^\n]", (*papelaria)->local);
+    scanf(  "%[^\n]",dadopapelaria->local);
+        dadopapelaria->produtos = malloc(sizeof(Produto) * 10);
+    dadopapelaria->num_produtos = 0;
+}
+// função para inserir os dados da papelaria na lista
+void inserir_lista(Lista *plista , papelaria dado){
+  No *novo = (struct No*) malloc(sizeof( No));
+  if (novo == NULL){
+    printf("Erro ao alocar memoria\n");
+    exit(1);
+}
+    novo-> dado = dado;
+    novo->proximo = NULL;
+    if (plista->inicio == NULL){
+        plista->inicio = novo;
+    } else {
+      No* pi;
+        for(pi = plista->inicio; pi->proximo != NULL; pi = pi ->proximo);
+        pi->proximo = novo;
+    }
 }
 
-void inserir(Lista *plista, Papelaria dado) {
-        struct No *novo = (struct No*) malloc(sizeof(struct No));  
-     if (novo == NULL) {
-        printf("Erro ao alocar memória.\n");
-        exit(1);
+// função para mostra dados da papelaria na lista
+void mostrar(Lista lista){
+  No* pi;
+    for(pi = lista.inicio; pi != NULL; pi = pi->proximo){
+        printf("Nome: %s|\t Endereco: %s|\n", pi->dado.nome, pi->dado.local);
     }
-    novo->dado = dado;
-    novo->proximo = plista->inicio;
-    plista->inicio = novo;
-  salva_dados(plista);
-   }
+}
+
+ No* pesquisar(Lista lista, char* nome){
+  No* pi;
+     for (pi = lista.inicio; pi != NULL; pi = pi->proximo) {
+        if (strcasecmp(pi->dado.nome, nome) == 0) {
+            return pi;
+        }
+    }
+    return NULL;
+}
+
     
     void deletar_pap (Lista *plista, char* nome){
         if (plista->inicio ==NULL){
@@ -52,73 +73,62 @@ void inserir(Lista *plista, Papelaria dado) {
             } else {
                 pa->proximo = pi->proximo;
                 free(pi);
+                  free(pi->dado.produtos);
             }         
         }
         atualizar_arquivo(plista);
     }
 
-void listar_pap(Lista lista){
-struct No * pi;
-for (pi = lista.inicio; pi  != NULL; pi = pi->proximo) {
-        printf("Nome: %s|\t Endereco: %s|\n", pi-> dado.nome,  pi-> dado.local);
-        }
-}
-
-struct No* pesquisar(Lista lista, char* nome){
-    struct No* pi;
-     for (pi = lista.inicio; pi != NULL; pi = pi->proximo) {
-        if (strcasecmp(pi->dado.nome, nome) == 0) {
-            return pi;
-        }
-    }
-    return NULL; 
-}
 void salva_dados(Lista *plista) {
-    FILE *file = fopen ("papelaria.txt"," w+");
+    FILE *file = fopen ("papelaria.txt"," w");
     if (file==NULL){
     printf("Erro ao abri o arquivo.\n");
     exit(1);
     }
-struct  No *pi; 
+ No *pi; 
 for (pi = plista->inicio; pi != NULL; pi = pi -> proximo){
-    fprintf(file,"Nomes %s |Endereco %s \n", pi->dado.nome, pi->dado.local);
+    fprintf(file,"Nome %s |Endereco %s \n", pi->dado.nome, pi->dado.local);
 
 }
 fclose(file);
 
 }
 
-void carregar_dados(Lista *plista) {
-    FILE *file = fopen("papelaria.txt", "r");  
+void carregar_dados(Lista *lista) {
+    FILE *file = fopen("papelaria.txt", "a+");  
     if (file == NULL){
-        file = fopen("papelaria.txt", "w");  
-        if (file == NULL) {
             printf("Erro ao criar o arquivo.\n");
             exit(1);
         }
-    } else {
-        Papelaria papelaria;
-        while (fscanf(file, "Nomec %s \n", papelaria.nome) != EOF && fscanf(file, "Endereco %s \n", papelaria.local) != EOF){
-             if (strlen(papelaria.nome) == 0) {
+        papelaria dadopapelaria;
+        while (fscanf(file, "Nomec %s \n", dadopapelaria.nome) != EOF && fscanf(file, "Endereco %s \n", dadopapelaria.local) != EOF){
+             if (strlen(dadopapelaria.nome) == 0) {
                 printf("Erro: Nome da papelaria vazio no arquivo.\n");
                 exit(1);
             }
-            inserir(plista, papelaria);
+            inserir_lista(lista, dadopapelaria);
         }
-    }
-    fclose(file);
-}
-
+         fclose(file);
+    }   
 void atualizar_arquivo(Lista *plista){
     FILE *file =fopen("papelaria.txt","w");
       if (file==NULL){
     printf("Erro ao abri o arquivo.\n");
     exit(1);
     }
-    struct  No *pi; 
+     No *pi; 
 for (pi = plista->inicio; pi != NULL; pi = pi -> proximo){
     fprintf(file,"Nome %s Endereco %s \n", pi->dado.nome, pi->dado.local);
  }
 fclose(file);
-
+}
+void obter_opcao_valida(int *opc) {
+    int result;
+    do {
+        result = scanf("%d", opc);
+        while(getchar() != '\n');  
+        if(result != 1) {
+            printf("Por favor, insira um numero valido.\n");
+        }
+    } while(result != 1);
 }
