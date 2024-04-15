@@ -7,9 +7,9 @@
 ##
 
 # Introdução 
-Nesse algoritmo vamos apresentar um sistema de gerenciamento de papelarias onde pode-se cadastrar as mesmas e efetuar vendas de produtos entre eles, cada papelaria possuindo seus campos como nome, endereço, e produtos disponiveis
+Nesse algoritmo vamos apresentar um sistema de gerenciamento de papelarias onde se pode cadastrar as mesmas e gerenciar seus produtos, cada papelaria possuindo seus campos como nome, endereço, e produtos disponiveis
 ###
-# Descrição 
+# Descrição
 ###
 # Funções Utilizadas
 As funções presentes no projeto são
