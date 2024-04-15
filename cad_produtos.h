@@ -15,10 +15,8 @@ struct Nop{
      struct  Nop * prox;
     };
 
-
-
 // Adiciona os itens aos campos pedidos ao usuario
-void ad_produto(Produto **produto, Lista_prod* pblista, Lista* plista);
+void ad_produto(Produto **produto, Lista_prod *pblista, Lista* plista);
 
 // Salva os dados fornecidos pelo usuario no .txt
 void salva_prod(Lista_prod *plista);
@@ -30,7 +28,7 @@ void insere_prod(Lista_prod *pblista, Produto Dados );
 struct Nop* pesq_prod(Lista_prod lista, char* nome_prod);
 
 // Função para remover um produto 
-void remover_produto(Produto *produto, int *qtdprod, char nomeprod[]);
+void remover_produto(Lista_prod *pblista, char* nome_prod);
 
 /*
 Essa fução se encontrara na opção repor estoque
