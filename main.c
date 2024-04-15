@@ -110,7 +110,17 @@ obter_opcao_valida(&opc);
     mostrar_prod(&lista);
       }
     }while(opc != 4);
-   
+
+/*
+Coisas a fazer para Terminar o Projeto
+
+> Consertar a busca do produto
+> Consertar a remoção do pruduto
+> Fazer a função de venda
+> Salvar os dados do .txt sempre que sair do programa
+*/
+           
+           
     return 0;
 }
  
