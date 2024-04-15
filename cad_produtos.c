@@ -57,42 +57,24 @@ void insere_prod(Lista_prod  *pblista, Produto Dados){
     }
 }
 
-void mostrar_prod(Lista* plista){
-    int num_nos = 0;
-    for (No* temp = plista->inicio; temp != NULL; temp = temp->proximo) {
-        num_nos++;
+void remover_produto(Lista* plista, char* nome_papelaria, char* nome_prod){
+    No* pi = pesquisar(*plista, nome_papelaria);
+    if (pi == NULL ){
+        printf("Paprlaroa nao existe \n");
+        exit(1);
     }
-    for (No* atual = plista->inicio; num_nos > 0; atual = atual->proximo, num_nos--) {
-        printf("Papelaria: %s|", atual->dado.nome);
-        for (int i = 0; i < atual->dado.num_produtos; i++) {
-            printf("Produto: %s|, Tipo: %s|, Preco: %.2f|, Quantidade: %d|\n\n",atual->dado.produtos[i].nome_prod,atual->dado.produtos[i].tip_prod, atual->dado.produtos[i].preco,atual->dado.produtos[i].qtd);
+    for (int i = 0; i < pi->dado.num_produtos; i++) {
+        if (strcmp(pi->dado.produtos[i].nome_prod, nome_prod) == 0) {
+            for (int j = i; j < pi->dado.num_produtos - 1; j++) {
+                pi->dado.produtos[j] = pi->dado.produtos[j + 1];
+            }
+            pi->dado.num_produtos--;
+            pi->dado.produtos = realloc(pi->dado.produtos, pi->dado.num_produtos * sizeof(Produto));
+            printf("Produto removido com sucesso.\n");
+            return;
         }
-    }
-}
-
-void remover_produto(Lista_prod *pblista, char *nome_prod) {
-    if (pblista->pinicio ==NULL){
-        printf("Sem papelaria\n");
-    } else if(strcmp(pblista->pinicio->Dados.nome_prod, nome_prod) == 0) {
-        struct Nop* pi = pblista->pinicio;
-        pblista->pinicio = pi ->prox;
-        free(pi);    
-    }else if (pblista->pinicio->prox==NULL){
-        if  (strcmp(pblista->pinicio->Dados.nome_prod, nome_prod) != 0){
-            printf("A papelaria nao pode ser removida\n");
-        }
-    }else {
-        struct Nop * pa;
-        struct Nop * pi;
-        for (pi = pblista->pinicio; pi != NULL && strcmp(pi->Dados.nome_prod, nome_prod) != 0; pi = pi->prox){
-        pa = pi;
-        } if (pi == NULL){
-        printf(" O produto inserido nao pode ser removido! \n");
-        } else {
-        pa->prox = pi->prox;
-        free(pi);
-        }
-    }
+       }
+    printf("O produto nao foi encontrado na papelaria.\n");
 }
 
 void salva_prod(Lista_prod *pblista) {
