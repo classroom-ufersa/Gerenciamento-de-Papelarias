@@ -53,7 +53,6 @@ void mostrar(Lista lista){
     return NULL;
 }
 
-    
 void deletar_pap (Lista *plista, char* nome){
     if (plista->inicio ==NULL){
         printf("Sem papelaria\n");
@@ -124,13 +123,16 @@ void atualizar_arquivo(Lista *plista){
     printf("Erro ao abri o arquivo.\n");
     exit(1);
     }
-     No *pi; 
-for (pi = plista->inicio; pi != NULL; pi = pi -> proximo){
-    fprintf(file,"Nome %s Endereco %s \n", pi->dado.nome, pi->dado.local);
+    int num_nos = 0;
+    for (No* temp = plista->inicio; temp != NULL; temp = temp->proximo) {
+        num_nos++;
+     No *atual; 
+for ( No *atual = plista->inicio; temp != NULL; temp = temp -> proximo){
+   
     }
     fclose(file);
 }
-
+}
 void obter_opcao_valida(int *opc) {
     int result;
     do {

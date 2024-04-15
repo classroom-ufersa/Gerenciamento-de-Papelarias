@@ -9,7 +9,6 @@ lista.inicio = NULL;
 Produto *produto = NULL;
 papelaria dadopapelaria;
 int opc, op2, op3, qtdpod, qtdprod, result;
-char nome[50];
 char nome_prod[50];
 char rem_prod[50];
 
@@ -54,7 +53,11 @@ obter_opcao_valida(&opc);
             case 4: {
               char nome[50];
               ((getchar()) != '\n');
-              printf("Informe qual papelaria deseja Remover\n");
+              printf("----------------- Remover Papelaria ----------------------\n");
+              printf("|        Informe qual papelaria deseja Remover           | n");
+              printf("|Atencao ao remover a papelaria todos os produtos sarao removidos| n");
+              printf("                  (╯°□°）╯︵ ┻━┻                          \n");
+              printf("----------------------------------------------------------\n");
               scanf("%[^\n]",nome);
               deletar_pap(&lista, nome);
               atualizar_arquivo(&lista);
@@ -94,9 +97,17 @@ obter_opcao_valida(&opc);
               break;
 
               case 3:{
+                char nome_papelaria[50];
+                char nome_prod[50];
+              printf("----------------- Remover produto ----------------------\n");
+              printf("Informe a papelaria na qual deseja remover o produto: \n");
+              printf("--------------------------------------------------------\n");
+              scanf(" %[^\n]",nome_papelaria );
+               printf("----------------- Remover produto ----------------------\n");
               printf("Informe o produto que deseja remover: \n");
-              scanf(" %[^\n]", rem_prod);
-              remover_produto(&lista_prod , nome_prod);
+               printf("--------------------------------------------------------\n");
+              scanf(" %[^\n]",nome_prod);
+              remover_produto(&lista ,nome_papelaria, nome_prod);
               }
               break; 
                 
@@ -115,7 +126,6 @@ obter_opcao_valida(&opc);
 Coisas a fazer para Terminar o Projeto
 
 > Consertar a busca do produto
-> Consertar a remoção do pruduto
 > Fazer a função de venda
 > Salvar os dados do .txt sempre que sair do programa
 */
