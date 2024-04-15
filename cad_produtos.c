@@ -12,16 +12,15 @@ struct Nop* pesq_prod(Lista_prod lista, char* nome_prod){
 }
 
 void ad_produto(Produto **produto, Lista_prod* pblista, Lista* plista){
-    printf(" Ola :-) Para qual papelaria gostaria de colocar o seu produto: \n");
+    printf(" Ola :-) Para qual papelaria gostaria de adicionar o seu produto: \n");
     char nome_papelaria[50];
     scanf(" %[^\n]", nome_papelaria);
     No* pi = pesquisar(*plista, nome_papelaria);
     if (pi == NULL) {
-        printf(" Ops :-(  Parece que a papelaria ainda nao foi cadastrada. Por favor, cadastre uma papelaria primeiro.\n");
+        printf(" Ops :-( | Parece que a papelaria ainda nao foi cadastrada. Por favor, cadastre a papelaria primeiro.\n");
         papelaria dadopapelaria; 
         cad_pap(&dadopapelaria, plista);
         inserir_lista(plista, dadopapelaria);
-        salva_dados(plista);
         pi = pesquisar(*plista, nome_papelaria);
     }
 
@@ -57,6 +56,7 @@ void insere_prod(Lista_prod  *pblista, Produto Dados){
         pro_it->prox = novo;
     }
 }
+
 void mostrar_prod(Lista* plista){
     int num_nos = 0;
     for (No* temp = plista->inicio; temp != NULL; temp = temp->proximo) {
@@ -70,34 +70,29 @@ void mostrar_prod(Lista* plista){
     }
 }
 
-void remover_produto(Produto *produto, int *qtdprod, char nomeprod[]) {
-    int i, j;
-    for (i = 0; i < *qtdprod; i++) {
-        if (strcmp(produto[i].nome_prod, nomeprod) == 0) {
-            for (j = i; j < *qtdprod - 1; j++) {
-                strcpy(produto[j].nome_prod, produto[j + 1].nome_prod);
-                strcpy(produto[j].tip_prod, produto[j + 1].tip_prod);
-                produto[j].preco = produto[j + 1].preco;
-                produto[j].qtd = produto[j + 1].qtd;
-            }
-            (*qtdprod)--;
-            break;
+void remover_produto(Lista_prod *pblista, char *nome_prod) {
+    if (pblista->pinicio ==NULL){
+        printf("Sem papelaria\n");
+    } else if(strcmp(pblista->pinicio->Dados.nome_prod, nome_prod) == 0) {
+        struct Nop* pi = pblista->pinicio;
+        pblista->pinicio = pi ->prox;
+        free(pi);    
+    }else if (pblista->pinicio->prox==NULL){
+        if  (strcmp(pblista->pinicio->Dados.nome_prod, nome_prod) != 0){
+            printf("A papelaria nao pode ser removida\n");
+        }
+    }else {
+        struct Nop * pa;
+        struct Nop * pi;
+        for (pi = pblista->pinicio; pi != NULL && strcmp(pi->Dados.nome_prod, nome_prod) != 0; pi = pi->prox){
+        pa = pi;
+        } if (pi == NULL){
+        printf(" O produto inserido nao pode ser removido! \n");
+        } else {
+        pa->prox = pi->prox;
+        free(pi);
         }
     }
-    FILE *arquivo = fopen("produto.txt", "w");
-    if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo.\n");
-        return;
-    }
-    for (i = 0; i < *qtdprod; i++) {
-        fprintf(arquivo, "nome: %s\n", produto[i].nome_prod);
-        fprintf(arquivo, "Tipo: %s\n", produto[i].tip_prod);
-        fprintf(arquivo, "Preco: %.2f\n", produto[i].preco);
-        fprintf(arquivo, "Quantidade: %d\n", produto[i].qtd);
-    }
-    fclose(arquivo);
-    printf("Produto removido com sucesso!\n");
-
 }
 
 void salva_prod(Lista_prod *pblista) {
