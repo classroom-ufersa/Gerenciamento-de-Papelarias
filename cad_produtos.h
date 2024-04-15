@@ -28,7 +28,7 @@ void insere_prod(Lista_prod *pblista, Produto Dados );
 struct Nop* pesq_prod(Lista_prod lista, char* nome_prod);
 
 // Função para remover um produto 
-void remover_produto(Lista_prod *pblista, char* nome_prod);
+void remover_produto(Lista* plista, char* nome_papelaria, char* nome_prod);
 
 /*
 Essa fução se encontrara na opção repor estoque
