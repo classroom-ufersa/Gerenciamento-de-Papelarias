@@ -93,22 +93,3 @@ void remover_produto(Lista* plista, char* nome_papelaria, char* nome_prod){
     }
     printf("O produto nao foi encontrado na papelaria.\n");
 }
-
-void salva_prod(Lista_prod *pblista) {
-    FILE *arquivo = fopen ("produto.txt"," w+");
-    if (arquivo==NULL){
-    printf("Erro ao abri o arquivo.\n");
-    exit(1);
-    }
-struct  Nop *pro_it; 
-for (pro_it = pblista->pinicio; pro_it != NULL; pro_it = pro_it -> prox){
-    fprintf(arquivo,"Produto: %s \n Tipo: %s \n Preco: %f  \n Quantidade: %d", pro_it->Dados.nome_prod, pro_it->Dados.tip_prod, pro_it->Dados.preco, pro_it->Dados.qtd);
-
-}
-fclose(arquivo);
-}
-
-void venda_prod(){
-   
-}
-

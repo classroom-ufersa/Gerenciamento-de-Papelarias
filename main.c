@@ -4,13 +4,9 @@
 int main(void){
 Lista_prod lista_prod;
 lista_prod.pinicio = NULL;
-Lista lista;
-lista.inicio = NULL;
+Lista lista;lista.inicio = NULL;
 Produto *produto = NULL;
-papelaria dadopapelaria;
-int opc, op2, op3, qtdpod, qtdprod, result;
-char nome_prod[50];
-char rem_prod[50];
+int opc, op2, op3;
 
 do {
            printf("***************[ SISTEMA OS EMPAPELADOS ]***************\n");
@@ -47,22 +43,40 @@ obter_opcao_valida(&opc);
             break;
 
             case 3:  
+            lista = ler_arquivo();
               mostrar(lista);
             break;
 
-            case 4: {
-              char nome[50];
-              ((getchar()) != '\n');
-              printf("----------------- Remover Papelaria ----------------------\n");
-              printf("|        Informe qual papelaria deseja Remover           | n");
-              printf("|Atencao ao remover a papelaria todos os produtos sarao removidos| n");
-              printf("                  (╯°□°）╯︵ ┻━┻                          \n");
-              printf("----------------------------------------------------------\n");
-              scanf("%[^\n]",nome);
-              deletar_pap(&lista, nome);
-              atualizar_arquivo(&lista);
-                  }
-              break;
+           case 4:
+      {
+        char sn[10];
+        char nome[50];
+        do
+        {
+          printf("-------------------- Remover Papelaria ----------------------------\n");
+          printf("|Atencao ao remover a papelaria todos os produtos sarao removidos |\n");
+          printf("|              deseja comtinuar  sim ou nao                        |\n");
+          printf("-------------------------------------------------------------------\n");
+          scanf(" %[^\n]", sn);
+          if (strcmp(sn, "sim") == 0 || strcmp(sn, "s") ==0)
+          {
+            printf("Informe o nome da papelaria que deseja remover: \n");
+            ((getchar()) != '\n');
+            scanf("%[^\n]", nome);
+            deletar_pap(&lista, nome);
+            atualizar_arquivo(&lista);
+          }
+          else if (strcmp(sn, "nao") == 0 || strcmp(sn, "n") == 0)
+          {
+            printf("Operacao cancelada.\n");
+          }
+          else
+          {
+            printf("Por favor, insira um numero valido.\n");
+          }
+        } while (strcmp(sn, "sim") && strcmp(sn, "s") && strcmp(sn, "nao") && strcmp(sn, "n") != 0);
+      }
+      break;
                 }
             } 
         else if(opc == 2){
@@ -71,10 +85,10 @@ obter_opcao_valida(&opc);
         obter_opcao_valida(&op3);
             switch(op3){
               case 1:{
-              char nome[50];
+              char nome_prod[50];
               printf("informe o nome do Produto\n");
               ((getchar()) != '\n');
-              scanf("%[^\n]",nome);
+              scanf("%[^\n]",nome_prod);
               struct Nop* pro_it = pesq_prod(lista_prod, nome_prod); 
               if (pro_it !=NULL){
               printf("Produto: %s | Preco: %.2f | Quantidade: %d | \n", pro_it->Dados.nome_prod, pro_it->Dados.preco,pro_it->Dados.tip_prod);

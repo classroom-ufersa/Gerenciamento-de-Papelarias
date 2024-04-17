@@ -1,3 +1,0 @@
-Papelaria: pedro| Endereco: rua 12 
-Produto: pa| Tipo: aa| 
- Preco por quantidade: 11.00| Quantidade: 11

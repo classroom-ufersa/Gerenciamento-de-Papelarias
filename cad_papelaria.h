@@ -51,6 +51,7 @@ void carregar_dados(Lista *plista);
 void atualizar_arquivo(Lista *plista);
 
 void obter_opcao_valida(int *opc);
+Lista ler_arquivo();
 
 
 #include "cad_produtos.h"  

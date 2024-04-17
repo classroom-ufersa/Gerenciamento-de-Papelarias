@@ -80,42 +80,38 @@ void deletar_pap (Lista *plista, char* nome){
     atualizar_arquivo(plista);
 }
 
-void salva_dados(Lista *plista) {
-    
-    FILE *file = fopen ("papelaria.txt"," w");
-    if (file==NULL){
-    printf("Erro ao abrir o arquivo.\n");
-    return;
+Lista ler_arquivo(){
+        Lista lista;
+    lista.inicio = NULL;
+    FILE *file = fopen("papelaria.txt", "r");
+    if (file == NULL){
+        printf("Erro ao abrir o arquivo.\n");
+        return lista;
     }
-int num_nos = 0;
-    for (No* temp = plista->inicio; temp != NULL; temp = temp->proximo) {
-        num_nos++;
-    }
-    for (No* atual = plista->inicio; num_nos > 0; atual = atual->proximo, num_nos--) {
-        fprintf(file, "Papelaria: %s| Endereco: %s \n", atual->dado.nome, atual->dado.local);
-        for (int i = 0; i < atual->dado.num_produtos; i++) {
-            fprintf(file, "Produto: %s| Tipo: %s| \n Preco por quantidade: %.2f| Quantidade: %d\n",atual->dado.produtos[i].nome_prod,atual->dado.produtos[i].tip_prod, atual->dado.produtos[i].preco,atual->dado.produtos[i].qtd);
-        }
-    }
-fclose(file);
+    papelaria e;
+    while(fread(&e, sizeof(papelaria),1, file)){
+        inserir_lista(&lista,e);
+    }  
+    fclose(file);
+    return lista;
 }
 
-void carregar_dados(Lista *lista) {
-    FILE *file = fopen("papelaria.txt", "a+");  
+void salva_dados(Lista *plista){
+
+    FILE *file = fopen("papelaria.txt", "a");
     if (file == NULL){
-            printf("Erro ao criar o arquivo.\n");
-            exit(1);
+        printf("Erro ao abrir o arquivo.\n");
+        return;
+    }
+    for (No *atual = plista->inicio; atual != NULL; atual = atual->proximo){
+        fprintf(file, "Papelaria: %s| Endereco: %s \n", atual->dado.nome, atual->dado.local);
+        for (int i = 0; i < atual->dado.num_produtos; i++){
+            fprintf(file, "Produto: %s| Tipo: %s| \n Preco por quantidade: %.2f| Quantidade: %d\n", atual->dado.produtos[i].nome_prod, atual->dado.produtos[i].tip_prod, atual->dado.produtos[i].preco, atual->dado.produtos[i].qtd);
         }
-        papelaria dadopapelaria;
-        while (fscanf(file, "Nomec %s \n", dadopapelaria.nome) != EOF && fscanf(file, "Endereco %s \n", dadopapelaria.local) != EOF){
-             if (strlen(dadopapelaria.nome) == 0) {
-                printf("Erro: Nome da papelaria vazio no arquivo.\n");
-                exit(1);
-            }
-            inserir_lista(lista, dadopapelaria);
-        }
+    }
     fclose(file);
-}   
+}
+
 
 void atualizar_arquivo(Lista *plista){
     FILE *file =fopen("papelaria.txt","w");
