@@ -11,7 +11,7 @@ int opc, op2, op3;
 do {
            printf("***************[ SISTEMA OS EMPAPELADOS ]***************\n");
 printf("    Nos informe oque deseja fazer\n");
-printf(" (1)-Gerenciar Papelarias. \n (2)-Gerenciar Produtos. \n (3)-Listar Papelarias e seus produtos.\n (4)-Sair. \n ");
+printf(" (1)-Gerenciar Papelarias. \n (2)-Gerenciar Produtos. \n (3)-Listar Papelarias e seus produtos.\n (4)-Salva no Arquivo.\n (5)-Sair\n ");
 obter_opcao_valida(&opc);
     if(opc == 1){
       
@@ -23,13 +23,11 @@ obter_opcao_valida(&opc);
                 papelaria dadopap;
                 cad_pap (&dadopap, &lista);
                 inserir_lista(&lista, dadopap);
-                salva_dados(&lista);
                 }
             break;  
 
                 case 2:{
                 char nome[50];
-                ((getchar()) != '\n');
                 printf("Informe o nome da papelaria\n");
                 scanf("%[^\n]",nome);
                 struct No * pi = pesquisar(lista,nome);
@@ -44,6 +42,7 @@ obter_opcao_valida(&opc);
 
             case 3:  
             lista = ler_arquivo();
+            
               mostrar(lista);
             break;
 
@@ -91,7 +90,7 @@ obter_opcao_valida(&opc);
               scanf("%[^\n]",nome_prod);
               struct Nop* pro_it = pesq_prod(lista_prod, nome_prod); 
               if (pro_it !=NULL){
-              printf("Produto: %s | Preco: %.2f | Quantidade: %d | \n", pro_it->Dados.nome_prod, pro_it->Dados.preco,pro_it->Dados.tip_prod);
+              printf("Produto: %s | Preco: %.2f | Quantidade: %d | \n", pro_it->Dados.nome_prod, pro_it->Dados.preco,pro_it->Dados.qtd);
               }   
               else {
               printf("Produto nao encontrado\n");
@@ -107,7 +106,6 @@ obter_opcao_valida(&opc);
               }
               ad_produto(&produto, &lista_prod, &lista);
               insere_prod(&lista_prod, *produto);
-              salva_dados(&lista);
               break;
 
               case 3:{
@@ -134,7 +132,10 @@ obter_opcao_valida(&opc);
     else if(opc == 3){
     mostrar_prod(&lista);
       } 
-    }while(opc != 4);
+       else if(opc == 4){
+        salva_dados(&lista);
+      } 
+    }while(opc != 5);
 
 /*
 Coisas a fazer para Terminar o Projeto

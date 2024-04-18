@@ -108,9 +108,9 @@ void salva_dados(Lista *plista){
         return;
     }
     for (No *atual = plista->inicio; atual != NULL; atual = atual->proximo){
-        fprintf(file, "Papelaria: %s| Endereco: %s \n", atual->dado.nome, atual->dado.local);
+        fprintf(file, "|Papelaria: %s| Endereco: %s|\n", atual->dado.nome, atual->dado.local);
         for (int i = 0; i < atual->dado.num_produtos; i++){
-            fprintf(file, "Produto: %s| Tipo: %s| \n Preco por quantidade: %.2f| Quantidade: %d\n", atual->dado.produtos[i].nome_prod, atual->dado.produtos[i].tip_prod, atual->dado.produtos[i].preco, atual->dado.produtos[i].qtd);
+            fprintf(file, "Produto: %s| Tipo: %s|  Preco por unidade: %.2f| Quantidade: %d\n", atual->dado.produtos[i].nome_prod, atual->dado.produtos[i].tip_prod, atual->dado.produtos[i].preco, atual->dado.produtos[i].qtd);
         }
     }
     fclose(file);

@@ -69,7 +69,7 @@ void mostrar_prod(Lista* plista){
     for (No* atual = plista->inicio; num_nos > 0; atual = atual->proximo, num_nos--) {
         printf("Papelaria: %s|", atual->dado.nome);
         for (int i = 0; i < atual->dado.num_produtos; i++) {
-            printf("Produto: %s| Tipo: %s| Preco: %.2f|, Quantidade: %d|\n",atual->dado.produtos[i].nome_prod,atual->dado.produtos[i].tip_prod, atual->dado.produtos[i].preco,atual->dado.produtos[i].qtd);
+            printf("Produto: %s| Tipo: %s| Preco: %.2f| Quantidade: %d|\n",atual->dado.produtos[i].nome_prod,atual->dado.produtos[i].tip_prod, atual->dado.produtos[i].preco,atual->dado.produtos[i].qtd);
         }
     }
 }
