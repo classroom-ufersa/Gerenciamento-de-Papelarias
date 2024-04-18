@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+typedef struct produto Produto;
  typedef struct Papelaria {
     char nome[50];
     char local[100];
