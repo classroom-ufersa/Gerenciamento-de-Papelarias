@@ -4,13 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-typedef struct produto {
-    char nome_prod [70];
-    char tip_prod [70];
-    float preco;
-    int qtd;
-    struct Papelaria* papelaria; 
-} Produto;
 
  typedef struct Papelaria {
     char nome[50];

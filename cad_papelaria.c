@@ -43,6 +43,7 @@ void mostrar(Lista lista){
     }
 }
 
+// função para pesquisar uma papelaria 
  No* pesquisar(Lista lista, char* nome){
   No* pi;
      for (pi = lista.inicio; pi != NULL; pi = pi->proximo) {
@@ -53,6 +54,7 @@ void mostrar(Lista lista){
     return NULL;
 }
 
+// função para deletar uma papelaria em especifico
 void deletar_pap (Lista *plista, char* nome){
     if (plista->inicio ==NULL){
         printf("Sem papelaria\n");
@@ -80,6 +82,7 @@ void deletar_pap (Lista *plista, char* nome){
     atualizar_arquivo(plista);
 }
 
+// função para ler os dados aquivo 
 Lista ler_arquivo(){
         Lista lista;
     lista.inicio = NULL;
@@ -96,6 +99,7 @@ Lista ler_arquivo(){
     return lista;
 }
 
+// função para salva os dados no arquivo 
 void salva_dados(Lista *plista){
 
     FILE *file = fopen("papelaria.txt", "a");
@@ -112,7 +116,7 @@ void salva_dados(Lista *plista){
     fclose(file);
 }
 
-
+// função para atualizar os dados no arquivo quando ouver auterasao
 void atualizar_arquivo(Lista *plista){
     FILE *file =fopen("papelaria.txt","w");
       if (file==NULL){
@@ -129,6 +133,7 @@ for ( No *atual = plista->inicio; temp != NULL; temp = temp -> proximo){
     fclose(file);
 }
 }
+
 void obter_opcao_valida(int *opc) {
     int result;
     do {

@@ -133,7 +133,7 @@ obter_opcao_valida(&opc);
     }
     else if(opc == 3){
     mostrar_prod(&lista);
-      }
+      } 
     }while(opc != 4);
 
 /*
